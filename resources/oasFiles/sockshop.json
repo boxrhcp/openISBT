@@ -12,7 +12,7 @@
   },
   "servers": [
     {
-      "url": "http://ec2-34-249-43-215.eu-west-1.compute.amazonaws.com:8080"
+      "url": "http://34.78.76.207:80"
     }
   ],
   "paths": {

@@ -9,7 +9,7 @@ pluginManagement {
 }
 rootProject.name = 'openISBT'
 include 'openISBTBackend'
-include 'openISBTFrontend'
+//include 'openISBTFrontend'
 include 'openISBTWorker'
 include 'fakerServer'
 
