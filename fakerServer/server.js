@@ -20,11 +20,13 @@ http.createServer(function (req, res) {
     body.push(chunk);
   }).on('end', () => {
     body = Buffer.concat(body).toString();
-    var jbody = JSON.parse(body)
-    var fake = jsf.generate(jbody)
-    var fakeString = JSON.stringify(fake);
+    console.log("before: " + body);
+    var jbody = JSON.parse(body);
+    var fake = jsf.generate(jbody);
+    var fakeString = JSON.stringify(fake).replace("\"","").replace("\"","");
     res.writeHead(200, {"Content-Type": "application/json"});
-    res.write(fakeString)
+    console.log("transformed: " + fakeString);
+    res.write(fakeString);
     res.end();
   });
 
