@@ -12,13 +12,13 @@
   },
   "servers": [
     {
-      "url": "http://34.77.187.160:80"
+      "url": "http://35.205.233.151"
     }
   ],
   "paths": {
     "/orders": {
       "get": {
-        "description": "Returns all orders",
+        "description": "Returns all examples asdasd",
         "operationId": "Get orders",
         "parameters": [
           {
@@ -29,7 +29,7 @@
             "schema": {
               "type": "string",
               "enum": [
-                "v1"
+                "v2"
               ]
             }
           }
@@ -45,8 +45,7 @@
               }
             }
           }
-        },
-        "parameters": []
+        }
       },
       "post": {
         "description": "Register new order",
@@ -60,7 +59,7 @@
             "schema": {
               "type": "string",
               "enum": [
-                "v1"
+                "v2"
               ]
             }
           }
@@ -87,8 +86,7 @@
               }
             }
           }
-        },
-        "parameters": []
+        }
       }
     },
     "/orders/{id}": {
@@ -114,7 +112,7 @@
             "schema": {
               "type": "string",
               "enum": [
-                "v1"
+                "v2"
               ]
             }
           }
@@ -154,7 +152,7 @@
             "schema": {
               "type": "string",
               "enum": [
-                "v1"
+                "v2"
               ]
             }
           }

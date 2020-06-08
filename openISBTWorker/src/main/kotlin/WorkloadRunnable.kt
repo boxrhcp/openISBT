@@ -109,7 +109,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                 val response = client.get<HttpResponse>(url) {
                                     method = HttpMethod.Get
                                     body = TextContent(apiRequest.body.toString(), contentType = ContentType.Application.Json)
-                                    if (apiRequest.headers != null && apiRequest.headers.size > 0) {
+                                    if (apiRequest.headers != null && apiRequest.headers.isNotEmpty()) {
                                         for (h in apiRequest.headers) {
                                             log.debug("Add header: ${h.first}, ${h.second}")
                                             headers.append(h.first, h.second)
