@@ -76,17 +76,17 @@ void jarFactory(Jar jarTask, jarName, mainClass) {
 }
 
 task buildMatchingTool(type: Jar) {
-    jarFactory(it, 'matchingTool', 'tools.matchingtool.MatchingTool')
+    jarFactory(it, 'matchingTool', 'tools.matchingtool.MatchingToolKt')
 }
 
 task buildWorkloadGenerator(type: Jar) {
-    jarFactory(it, 'wlgenerator', 'tools.wlgenerator.GeneratorTool')
+    jarFactory(it, 'wlgenerator', 'tools.wlgenerator.GeneratorToolKt')
 }
 
 task buildRunTool(type: Jar) {
-    jarFactory(it, 'runner', 'tools.runner.RunTool')
+    jarFactory(it, 'runner', 'tools.runner.RunToolKt')
 }
 
 task buildBoxPlotTool(type: Jar) {
-    jarFactory(it, 'boxplot', 'tools.evaluation.BoxPlot')
+    jarFactory(it, 'boxplot', 'tools.evaluation.BoxPlotKt')
 }
