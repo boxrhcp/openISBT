@@ -27,7 +27,6 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
     }
 
     override fun run() {
-
         val measurement = PatternMeasurement(patternRequest.resource, patternRequest.abstractPattern.name, patternRequest.id, workerID)
         measurement.start = System.currentTimeMillis()
 
@@ -63,8 +62,10 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
             try {
                 val client = HttpClient()
                 var url = apiRequest.path
+                apiMeasurement.concreteMethod = apiRequest.method
                 log.debug("Path is " + url)
                 url = buildUrl(url, apiRequest.parameter)
+                apiMeasurement.concretePath = url
                 log.debug("URL is " + url)
 
                 with(apiRequest.method) {
