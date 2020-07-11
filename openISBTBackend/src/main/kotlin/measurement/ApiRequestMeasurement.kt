@@ -6,6 +6,7 @@ data class ApiRequestMeasurement(val path: String,
                                  val start: Long,
                                  val end: Long,
                                  val concretePath: String,
-                                 val concreteMethod: String
+                                 val concreteMethod: String,
+                                 val headerId: String
                                  ) {
 }

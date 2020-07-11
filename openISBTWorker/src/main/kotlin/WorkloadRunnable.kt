@@ -100,6 +100,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 client.close()
@@ -125,6 +126,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 client.close()
@@ -149,6 +151,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 client.close()
@@ -173,6 +176,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 client.close()
@@ -198,6 +202,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 client.close()

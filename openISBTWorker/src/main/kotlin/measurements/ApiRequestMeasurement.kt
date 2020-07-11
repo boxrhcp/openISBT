@@ -8,4 +8,5 @@ class ApiRequestMeasurement(var path: String, var abstractOperation: String, var
     var end: Long = -1
     var concretePath: String = ""
     var concreteMethod: String = ""
+    var headerId: String = ""
 }
