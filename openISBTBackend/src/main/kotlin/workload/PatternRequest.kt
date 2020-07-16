@@ -2,6 +2,7 @@ package workload
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import kotlinx.coroutines.runBlocking
 import patternconfiguration.AbstractPattern
 import mapping.simplemapping.PatternOperation
 import org.slf4j.LoggerFactory
@@ -13,7 +14,7 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
 
     var apiRequests : Array<ApiRequest> = arrayOf()
 
-    suspend fun generateApiRequests(operationSequence: List<List<PatternOperation>>) {
+    fun generateApiRequests(operationSequence: List<List<PatternOperation>>) {
 
         val requestList = ArrayList<ApiRequest>()
 
@@ -55,7 +56,10 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
             for (p in operation.parameters) {
                 val schema = p.get("schema").toString()
                 log.trace("Fill parameter " + p.get("name").toString() + " with " + schema)
-                var value:String = SchemaFaker.fakeSchema(schema)
+                var value:String = ""
+                runBlocking {
+                    value = SchemaFaker.fakeSchema(schema)
+                }
                 log.trace("Faked schema: $value")
                 if (value.startsWith("[")) {
                     log.warn("VALUE ARRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -82,7 +86,10 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
                 for (p in operation.headers) {
                     val schema = p.second.toString()
                     log.trace("Header schema: $schema")
-                    val fakeValue = SchemaFaker.fakeSchema(schema)
+                    var fakeValue = ""
+                    runBlocking {
+                        fakeValue = SchemaFaker.fakeSchema(schema)
+                    }
                     log.debug("Added header: $fakeValue")
                     headerList.add(Pair(p.first, fakeValue))
                 }
@@ -92,7 +99,10 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
             //Fill Body
             val body:String = operation.requiredBody.toString()
             log.trace("Body schema: $body")
-            val v = SchemaFaker.fakeSchema(body)
+            var v = ""
+            runBlocking {
+                v = SchemaFaker.fakeSchema(body)
+            }
             log.debug("Added body: $v")
             req.body = JsonParser().parse(v)
             requestList.add(req)

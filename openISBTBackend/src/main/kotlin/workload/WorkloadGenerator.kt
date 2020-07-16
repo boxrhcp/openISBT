@@ -10,7 +10,7 @@ class WorkloadGenerator {
     var listener:ProgressListener? = null
     private var workload = ArrayList<PatternRequest>()
     private val log = LoggerFactory.getLogger("WorkloadGenerator")
-
+    private var counter = 1
     fun generateWorkload(resourceMappings : Array<ResourceMapping>) {
         patternRequests.clear()
 
@@ -29,16 +29,18 @@ class WorkloadGenerator {
             if (topLevelMapping.supported && topLevelMapping.enabled) {
                 for (patternMapping in topLevelMapping.patternMappingList) {
                     for (i in 1 .. patternMapping.requests) {
-                        runBlocking {
-                            val id = getNextID((total * 1.2).toInt())
-                            val req = PatternRequest(id, topLevelMapping.resourcePath, patternMapping.aPattern)
+                        //runBlocking {
+                            //val id = getNextID((total * 1.2).toInt())
+                            log.info("THE COUNTER IS: $counter ")
+                            val req = PatternRequest(counter, topLevelMapping.resourcePath, patternMapping.aPattern)
                             req.generateApiRequests(patternMapping.operationSequence)
-                            patternRequests[id] = req
+                            patternRequests[counter] = req
                             val current = patternRequests.size
+                            counter++
                             if (listener != null) {
                                 listener?.setProgress((current * 100) / total)
                             }
-                        }
+                        //}
                     }
                 }
             }
