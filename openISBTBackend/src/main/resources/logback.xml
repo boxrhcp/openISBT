@@ -18,13 +18,13 @@
     </appender>
 
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
 
-    <logger name="PatternRequest" level="DEBUG"/>
-    <logger name="SchemaFaker" level="DEBUG"/>
+    <logger name="PatternRequest" level="INFO"/>
+    <logger name="SchemaFaker" level="INFO"/>
     <logger name="org.eclipse.jetty" level="INFO"/>
     <logger name="io.netty" level="INFO"/>
 </configuration>

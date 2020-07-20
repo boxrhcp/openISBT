@@ -12,9 +12,9 @@ val log = LoggerFactory.getLogger("PatternRequest")!!
 
 class PatternRequest(var id: Int, var resource: String, var abstractPattern: AbstractPattern) {
 
-    var apiRequests : Array<ApiRequest> = arrayOf()
+    var apiRequests: Array<ApiRequest> = arrayOf()
 
-    fun generateApiRequests(operationSequence: List<List<PatternOperation>>) {
+    fun generateApiRequests(operationSequence: List<List<PatternOperation>>) = runBlocking {
 
         val requestList = ArrayList<ApiRequest>()
 
@@ -28,7 +28,7 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
                 operation = operationList[idx]
             }
 
-            log.debug("Generate request for operation " + operation.abstractOperation.operation + " (" + operation.path +")...")
+            log.debug("Generate request for operation " + operation.abstractOperation.operation + " (" + operation.path + ")...")
 
             val req = ApiRequest()
             req.path = operation.path
@@ -56,21 +56,20 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
             for (p in operation.parameters) {
                 val schema = p.get("schema").toString()
                 log.trace("Fill parameter " + p.get("name").toString() + " with " + schema)
-                var value:String = ""
-                runBlocking {
-                    value = SchemaFaker.fakeSchema(schema)
-                }
+                var value: String = ""
+                value = SchemaFaker.fakeSchema(schema)
+
                 log.trace("Faked schema: $value")
                 if (value.startsWith("[")) {
                     log.warn("VALUE ARRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    value = value.substring(2, value.length-2)
+                    value = value.substring(2, value.length - 2)
                     log.debug("Minimized: $value")
                     var tmp = ""
                     for (e in value.split("\",\"")) {
                         log.debug("One value: $e")
                         tmp = "$tmp$e,"
                     }
-                    tmp = tmp.substring(0, tmp.length-1)
+                    tmp = tmp.substring(0, tmp.length - 1)
                     log.debug("Result: $tmp")
                     value = GsonBuilder().create().toJson("\"" + tmp + "\"")
                 }
@@ -87,9 +86,8 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
                     val schema = p.second.toString()
                     log.trace("Header schema: $schema")
                     var fakeValue = ""
-                    runBlocking {
-                        fakeValue = SchemaFaker.fakeSchema(schema)
-                    }
+                    fakeValue = SchemaFaker.fakeSchema(schema)
+
                     log.debug("Added header: $fakeValue")
                     headerList.add(Pair(p.first, fakeValue))
                 }
@@ -97,12 +95,12 @@ class PatternRequest(var id: Int, var resource: String, var abstractPattern: Abs
             }
 
             //Fill Body
-            val body:String = operation.requiredBody.toString()
+            val body: String = operation.requiredBody.toString()
             log.trace("Body schema: $body")
             var v = ""
-            runBlocking {
-                v = SchemaFaker.fakeSchema(body)
-            }
+
+            v = SchemaFaker.fakeSchema(body)
+
             log.debug("Added body: $v")
             req.body = JsonParser().parse(v)
             requestList.add(req)

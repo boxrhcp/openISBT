@@ -103,6 +103,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                 apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
+                                response.close()
                                 client.close()
                             }
                         }
@@ -129,6 +130,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                 apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
+                                response.close()
                                 client.close()
                             }
                         }
@@ -154,6 +156,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                 apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
+                                response.close()
                                 client.close()
                             }
                         }
@@ -179,6 +182,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                 apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
+                                response.close()
                                 client.close()
                             }
                         }
@@ -205,6 +209,7 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                 apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
+                                response.close()
                                 client.close()
                             }
                         }
