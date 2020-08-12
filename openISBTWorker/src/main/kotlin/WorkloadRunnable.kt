@@ -58,9 +58,8 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                     }
                 }
             }
-
+            val client = HttpClient()
             try {
-                val client = HttpClient()
                 var url = apiRequest.path
                 apiMeasurement.concreteMethod = apiRequest.method
                 log.debug("Path is " + url)
@@ -94,17 +93,16 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     }
                                     headers.append("Accept", "application/json")
                                 }
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 val responseText = response.readText()
                                 var logtext = responseText
                                 if (logtext.length > maxContentLen) {
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
-                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 response.close()
-                                client.close()
                             }
                         }
                         equals("GET") -> {
@@ -121,17 +119,16 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     headers.append("Accept", "application/json")
 
                                 }
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 val responseText = response.readText()
                                 var logtext = responseText
                                 if (logtext.length > maxContentLen) {
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
-                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 response.close()
-                                client.close()
                             }
                         }
                         equals("PUT") -> {
@@ -147,17 +144,16 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     }
                                     headers.append("Accept", "application/json")
                                 }
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 val responseText = response.readText()
                                 var logtext = responseText
                                 if (logtext.length > maxContentLen) {
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
-                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 response.close()
-                                client.close()
                             }
                         }
                         equals("PATCH") -> {
@@ -173,17 +169,16 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     }
                                     headers.append("Accept", "application/json")
                                 }
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 val responseText = response.readText()
                                 var logtext = responseText
                                 if (logtext.length > maxContentLen) {
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
-                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 response.close()
-                                client.close()
                             }
                         }
                         equals("DELETE") -> {
@@ -200,17 +195,16 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
                                     headers.append("Accept", "application/json")
 
                                 }
+                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 val responseText = response.readText()
                                 var logtext = responseText
                                 if (logtext.length > maxContentLen) {
                                     logtext = logtext.substring(0, maxContentLen-2) + "..."
                                 }
                                 log.info("${patternRequest.id}: Responded (${response.status.value}) $logtext")
-                                apiMeasurement.headerId = response.headers.get("y-request-id")!!
                                 apiRequest.response = responseText
                                 apiRequest.status = response.status.value
                                 response.close()
-                                client.close()
                             }
                         }
                         else -> {
@@ -221,6 +215,8 @@ class WorkloadRunnable(var patternRequest: PatternRequest, val statisticshandler
             } catch (e: Exception) {
                 log.error("Unable to process ApiRequest :(")
                 e.printStackTrace()
+            }finally{
+                client.close()
             }
 
             if (abstractOperation.output != null) {

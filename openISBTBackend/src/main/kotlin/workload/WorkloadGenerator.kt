@@ -51,6 +51,7 @@ class WorkloadGenerator {
             workload.add(entry.value)
         }
         log.info("Workload generated (" + (workload.size) + " pattern requests).")
+        SchemaFaker.close()
     }
 
     fun getWorkload() : Array<PatternRequest> {
